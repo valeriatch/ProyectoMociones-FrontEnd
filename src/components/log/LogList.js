@@ -19,22 +19,28 @@ const LogList = () => {
   };
 
   return (
-    <div className="list row">
+    <div className="LogList">
       <div className="col-md-6">
         <h4>Lista de logs</h4>
         <table>
+          <thead>
           <tr>
             <td>Metodo</td>
             <td>descripcion</td>
             <td>Fecha</td>
           </tr>
+          </thead>
+          <tbody>
           {logs &&
             logs.map((log, index) => (
               <tr>
+
                 <td>{log.metodo}</td>
+                <td>{log.descripcion}</td>
                 <td>{log.fecha}</td>
               </tr>
             ))}
+          </tbody>
         </table>
       </div>
     </div>

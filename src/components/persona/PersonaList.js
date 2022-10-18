@@ -69,7 +69,7 @@ const PersonaList = () => {
               </label>{" "}
               {currentPersona.nombre}
             </div>
-            <Link to={"/personas/" + currentPersona.id} className="btn-success">
+            <Link to={"/persona/personas/" + currentPersona.id} className="btn-success">
               Edit
             </Link>
           </div>

@@ -82,17 +82,7 @@ const Persona = (props) => {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="fecha">Fecha</label>
-              <input
-                type="text"
-                className="form-control"
-                id="fecha"
-                name="fecha"
-                value={currentPersona.fecha}
-                onChange={handleInputChange}
-              />
-            </div>
+            
           </form>
 
           <button className="btn btn-danger" onClick={deletePersona}>
