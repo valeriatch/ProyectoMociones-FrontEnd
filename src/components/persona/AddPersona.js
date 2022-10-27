@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PersonaDataService from "./services/PersonaService";
+import MocionesDataService from "../mocion/services/MocionService";
+import Dropdown from 'react-bootstrap/Dropdown';
+
 const AddPersona = () => {
   const initialPersonaState = {
     id: null,
@@ -7,8 +10,16 @@ const AddPersona = () => {
     persona: "",
     fecha: "",
   };
+  const initialMocionState = {
+    id: null,
+    texto: "",
+    tipomocion: "",
+
+  };
   const [persona, setPersona] = useState(initialPersonaState);
   const [submitted, setSubmitted] = useState(false);
+  const [currentMocion, setCurrentMocion] = useState(initialMocionState);
+  const [mociones, setMociones] = useState([]);
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setPersona({ ...persona, [name]: value });
@@ -27,6 +38,34 @@ const AddPersona = () => {
           fecha: response.data.fecha,
         });
         setSubmitted(true);
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  let valores = mociones.map((mocion, index) => {
+    return (
+      console.log(mocion),
+      <Dropdown.Item key={index} value={mocion.id}>
+        {mocion.texto}
+      </Dropdown.Item>
+    );
+
+  }, this);
+  useEffect(() => {
+    retrieveMociones();
+  }, []);
+
+  const handleInputChange2 = (event) => {
+    const { name, value } = event.target;
+    setCurrentMocion({ ...currentMocion, [name]: value });
+  };
+
+  const retrieveMociones = () => {
+    MocionesDataService.getAll()
+      .then((response) => {
+        setMociones(response.data);
         console.log(response.data);
       })
       .catch((e) => {
@@ -71,6 +110,18 @@ const AddPersona = () => {
               onChange={handleInputChange}
               name="nombre"
             />
+          </div>
+          <div className="form-group">
+            <label htmlFor="id">Mociones</label>
+            <Dropdown onChange={handleInputChange2}>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Tipos de Mociones
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {valores}
+              </Dropdown.Menu>
+            </Dropdown>
+
           </div>
           <button onClick={savePersona} className="btn btn-success">
             Enviar

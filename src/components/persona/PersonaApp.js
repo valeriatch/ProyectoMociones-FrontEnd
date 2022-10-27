@@ -10,7 +10,7 @@ function PersonaApp() {
     <div className="PersonaApp">
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <a href="/" className="navbar-brand">
-          back
+          Atrás
         </a>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
@@ -23,15 +23,15 @@ function PersonaApp() {
               Agregar Persona
             </Link>
           </li>
-          
+
         </div>
       </nav>
       <div className="container mt-3">
         <Routes>
-          <Route path="/" element={<PersonaList/>}/>
-          <Route path="/personas" element={<PersonaList/>}/>
-          <Route path="/add" element={<AddPersona/>}/>
-          <Route path="/personas/:id" element={<Persona/>}/>
+          <Route path="/" element={<PersonaList />} />
+          <Route path="/personas" element={<PersonaList />} />
+          <Route path="/add" element={<AddPersona />} />
+          <Route path="/personas/:id" element={<Persona />} />
 
         </Routes>
       </div>
