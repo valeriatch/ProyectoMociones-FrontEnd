@@ -7,7 +7,7 @@ const get = id => {
     return http.get(`/mocion/${id}`);
 };
 const create = (data, idTipo) => {
-    return http.post(`/mocion/${idTipo}`, data);
+    return http.put(`/mocion/${idTipo}`, data);
 };
 //no se si esto esta bien xd
 const update = (data, idTipo) => {
