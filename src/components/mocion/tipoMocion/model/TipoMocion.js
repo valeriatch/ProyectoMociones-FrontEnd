@@ -60,17 +60,7 @@ const TipoMocion = (props) => {
                 <div className="edit-form">
                     <h4>Tipo Mocion</h4>
                     <form>
-                        <div className="form-group">
-                            <label htmlFor="identidicacion">Identificacion</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="id"
-                                name="id"
-                                value={currentTipoMocion.id}
-                                onChange={handleInputChange}
-                            />
-                        </div>
+                        
                         <div className="form-group">
                             <label htmlFor="nombre">Descripcion</label>
                             <input

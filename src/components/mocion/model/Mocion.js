@@ -10,6 +10,8 @@ const Mocion = (props) => {
     const initialMocionState = {
         id: null,
         texto: "",
+        fecha: "",
+        tipomocion: null,
         tipoMocion: TipoMocion
     };
     const initialTipoMocionState = {
@@ -41,13 +43,16 @@ const Mocion = (props) => {
         setCurrentMocion({ ...currentMocion, [name]: value });
     };
 
+
+
     const updateMocion = () => {
         var data = {
+            id: currentMocion.id,
             texto: currentMocion.texto,
             fecha: currentMocion.fecha,
 
         };
-        MocionDataService.update(data, currentTipoMocion.id)
+        MocionDataService.update(data, currentMocion.tipomocion)
             .then((response) => {
                 console.log(response.data);
                 setMessage("La mocion fue actualizada");
@@ -86,17 +91,6 @@ const Mocion = (props) => {
                     <h4>Mocion</h4>
                     <form>
                         <div className="form-group">
-                            <label htmlFor="identidicacion">Identificacion</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                id="id"
-                                name="id"
-                                value={currentMocion.id}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="form-group">
                             <label htmlFor="nombre">Texto</label>
                             <input
                                 type="text"
@@ -108,20 +102,32 @@ const Mocion = (props) => {
                             />
                         </div>
                         <div className="form-group">
-                            <Dropdown >
-                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            <label htmlFor="fecha">Fecha</label>
+                            <input
+                                type="date"
+                                className="form-control"
+                                id="fecha"
+                                name="fecha"
+                                value={currentMocion.fecha}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <select id="tipomocion " class="form-select form-select-lg mb-3"
+                                name="tipomocion" onChange={handleInputChange}>
+                                <option value ="0" >
                                     Tipos de Mociones
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
+                                </option>
+                                
                                     {tipoMociones.map((tipomocion, index) => {
                                         return (
-                                            <Dropdown.Item key={index} value={tipomocion.id} onChange={handleInputChange}>
+                                            <option default={tipomocion.id} key={index} value={tipomocion.id} >
                                                 {tipomocion.descripcion}
-                                            </Dropdown.Item>
+                                            </option>
                                         )
                                     })}
-                                </Dropdown.Menu>
-                            </Dropdown>
+                                
+                            </select>
                         </div>
                     </form>
 

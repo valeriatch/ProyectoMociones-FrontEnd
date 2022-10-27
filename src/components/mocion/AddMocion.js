@@ -6,7 +6,7 @@ const AddMocion = () => {
         id: null,
         texto: "",
         tipoMocion: "", //no se este xd
-        //fecha: "",
+        fecha: "",
     };
 
     const initialTipoMocionState = {
@@ -59,18 +59,7 @@ const AddMocion = () => {
                 </div>
             ) : (
                 <div>
-                    <div className="form-group">
-                        <label htmlFor="identificacion">Identificacion</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="identificacion"
-                            required
-                            value={mocion.id}
-                            onChange={handleInputChange}
-                            name="identificacion"
-                        />
-                    </div>
+                    
                     <div className="form-group">
                         <label htmlFor="nombre">Texto</label>
                         <input
@@ -81,6 +70,18 @@ const AddMocion = () => {
                             value={mocion.texto}
                             onChange={handleInputChange}
                             name="nombre"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="Fecha">Identificacion</label>
+                        <input
+                            type="date"
+                            className="form-control"
+                            id="fecha"
+                            required
+                            value={mocion.fecha}
+                            onChange={handleInputChange}
+                            name="fecha"
                         />
                     </div>
                     <button onClick={saveMocion} className="btn btn-success">

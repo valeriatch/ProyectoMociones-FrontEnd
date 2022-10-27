@@ -63,6 +63,18 @@ const MocionList = () => {
                             </label>{" "}
                             {currentMocion.texto}
                         </div>
+                        <div>
+                            <label>
+                                <strong> Fecha:</strong>
+                            </label>{" "}
+                            {currentMocion.fecha}
+                        </div>
+                        <div>
+                            <label>
+                                <strong> Tipo Mocion:</strong>
+                            </label>{" "}
+                            {currentMocion.tipoMocion? currentMocion.tipoMocion.descripcion: "no hay tipo mocion"}
+                        </div>
                         <Link to={"/mocion/mocion/" + currentMocion.id} className="btn-success">
                             Edit
                         </Link>

@@ -13,6 +13,10 @@ const create = (data, idTipo) => {
 const update = (data, idTipo) => {
     return http.put(`/mocion/${idTipo}`, data);
 };
+
+const updatetipo = (idMocion, idTipo) => {
+    return http.put(`/mociontipo/${idTipo}/${idMocion}`);
+};
 const remove = id => {
     return http.delete(`/mocion/${id}`);
 };
