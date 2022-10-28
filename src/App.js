@@ -6,6 +6,7 @@ import PersonaApp from "./components/persona/PersonaApp";
 import LogList from "./components/log/LogList";
 import MocionApp from "./components/mocion/MocionApp";
 import TipoMocionApp from "./components/mocion/tipoMocion/TipoMocionApp";
+import PersonaMocionApp from "./components/personaMocion/PersonaMocionApp";
 
 function App() {
   return (
@@ -31,6 +32,11 @@ function App() {
               Mocion
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to={"/persona_mocion"} className="nav-link">
+              Asociar Persona - Mocion
+            </Link>
+          </li>
         </div>
       </nav>
       <div className="container mt-3">
@@ -39,6 +45,7 @@ function App() {
           <Route path="/persona/*" element={<PersonaApp />} />
           <Route path="/mocion/*" element={<MocionApp />}></Route>
           <Route path="/tipo_mocion/*" element={<TipoMocionApp />}></Route>
+          <Route path="/persona_mocion/*" element={<PersonaMocionApp />}></Route>
         </Routes>
       </div>
     </div>

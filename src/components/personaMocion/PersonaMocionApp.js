@@ -2,9 +2,10 @@ import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import AddPersona from "./AddPersona";
-import Persona from "./model/Persona";
-import PersonaList from "./PersonaList";
+
+import PersonaMocionList from "./PersonaMocionList";
+import AddPersonaMocion from "./AddPersonaMocion";
+import PersonaMocion from "./model/PersonaMocion";
 function PersonaMocionApp() {
     return (
         <div className="PersonaApp">
@@ -14,12 +15,12 @@ function PersonaMocionApp() {
                 </a>
                 <div className="navbar-nav mr-auto">
                     <li className="nav-item">
-                        <Link to={"/persona/personas"} className="nav-link">
-                            Lista de Personas
+                        <Link to={"/persona_mocion"} className="nav-link">
+                            Lista de Personas-Mociones
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to={"/persona/add"} className="nav-link">
+                        <Link to={"/persona_mocion/add"} className="nav-link">
                             Asociar Persona Mocion
                         </Link>
                     </li>
@@ -28,11 +29,10 @@ function PersonaMocionApp() {
             </nav>
             <div className="container mt-3">
                 <Routes>
-                    <Route path="/" element={<PersonaList />} />
-                    <Route path="/personas" element={<PersonaList />} />
-                    <Route path="/add" element={<AddPersona />} />
-                    <Route path="/personas/:id" element={<Persona />} />
-
+                    <Route path="/" element={<PersonaMocionList />} />
+                    <Route path="/persona_mocion" element={<PersonaMocionList />} />
+                    <Route path="/add" element={<AddPersonaMocion />} />
+                    <Route path="/persona_mocion/:id" element={<PersonaMocion />} />
                 </Routes>
             </div>
         </div>

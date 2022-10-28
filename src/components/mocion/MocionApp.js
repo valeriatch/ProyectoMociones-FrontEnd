@@ -12,7 +12,7 @@ function MocionApp() {
         <div className="MocionApp">
             <nav className="navbar navbar-expand navbar-dark bg-dark">
                 <a href="/" className="navbar-brand">
-                    Atrász
+                    Atrás
                 </a>
                 <div className="navbar-nav mr-auto">
                     <li className="nav-item">

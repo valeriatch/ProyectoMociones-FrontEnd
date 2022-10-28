@@ -2,52 +2,58 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import PersonaMocionService from "../services/PersonaMocionService";
 import MocionService from "../../mocion/services/MocionService";
+//import PersonaMocion from "./model/PersonaMocion";
 import PersonaService from "../../persona/services/PersonaService";
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const PersonaMocion = (props) => {
     const { id } = useParams();
     let navigate = useNavigate();
-    const initialPersonaMocionState = {
+    /*const initialPersonaMocionState = {
         id: null,
         //texto: "",
-    };
-    const initialIDState = {
-        idPersona: null,
+    };*/
+    const initialPersonaMocionState = {
+        id: null,
+        idPersona: "",
         idMosion: ""
     }
 
-    const [currentMocion, setCurrentMocion] = useState(initialIDState);
-    const [currentPersna, setCurrentPersona] = useState(initialIDState);
+    //const [currentMocion, setCurrentMocion] = useState(initialIDState);
+    //const [currentPersna, setCurrentPersona] = useState(initialIDState);
+    const [mociones, setMociones] = useState([]);
+    const [personas, setPersonas] = useState([]);
     const [currentPersonaMocion, setPersonaMocion] = useState(initialPersonaMocionState);
     const [message, setMessage] = useState("");
 
-    /*const getPersonaMocion = () => {
-        PersonaMocionService.getAll()
+    const getPersonaMocion = (id) => {
+        PersonaMocionService.getById(id)
             .then((response) => {
-                setCurrentMocion(response.data);
+                setPersonaMocion(response.data);
                 console.log(response.data);
             })
             .catch((e) => {
                 console.log(e);
             });
-    };*/
+    };
+
 
     useEffect(() => {
+        if (id) getPersonaMocion(id);
         retrieveMociones();
         retrievePersonas();
+    }, [id]);
 
-    }, []);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setCurrentMocion({ ...currentMocion, [name]: value });
+        setPersonaMocion({ ...currentPersonaMocion, [name]: value });
     };
 
     const retrieveMociones = () => {
         MocionService.getAll()
             .then((response) => {
-                setPersonaMocion(response.data);
+                setMociones(response.data);
                 console.log(response.data);
             })
             .catch((e) => {
@@ -58,7 +64,7 @@ const PersonaMocion = (props) => {
     const retrievePersonas = () => {
         PersonaService.getAll()
             .then((response) => {
-                setPersonaMocion(response.data);
+                setPersonas(response.data);
                 console.log(response.data);
             })
             .catch((e) => {
@@ -66,22 +72,23 @@ const PersonaMocion = (props) => {
             });
     }
 
-    const updateMocion = () => {
-        /* var data = {
-             texto: currentMocion.texto,
-             fecha: currentMocion.fecha,
-         };*/
-        PersonaMocionService.create(currentPersna.idPersona, currentMocion.idMosion)
-            .then((response) => {
-                console.log(response.data);
-                setMessage("La mocion fue actualizada");
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    };
+    /* const updateMocion = () => {
+         /* var data = {
+              texto: currentMocion.texto,
+              fecha: currentMocion.fecha,
+          };
+         PersonaMocionService.create(currentPersonaMocion.idPersona, currentPersonaMocion.idMosion)
+             .then((response) => {
+                 console.log(response.data);
+                 setMessage("La mocion fue actualizada");
+             })
+             .catch((e) => {
+                 console.log(e);
+             });
+     };*/
 
     const deletePersonaMocion = () => {
+        console.log(currentPersonaMocion);
         PersonaMocionService.remove(currentPersonaMocion.id)
             .then((response) => {
                 console.log(response.data);
@@ -94,72 +101,48 @@ const PersonaMocion = (props) => {
 
     return (
         <div>
-            {currentMocion ? (
+            {currentPersonaMocion ? (
                 <div className="edit-form">
                     <h4>Mocion</h4>
                     <form>
                         <div className="form-group">
-                            <label htmlFor="identidicacion">Identificacion</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                id="identificacion"
-                                name="identificacion"
-                                value={currentPersonaMocion.id}
-                                onChange={handleInputChange}
-                            />
-                        </div>
+                            <select id="idMosion " class="form-select form-select-lg mb-3"
+                                name="idMosion" onChange={handleInputChange}>
+                                <option value="0" >
+                                    Mociones
+                                </option>
 
+                                {mociones.map((mocion, index) => {
+                                    return (
+                                        <option default={mocion.id} key={index} value={mocion.id} >
+                                            {mocion.texto}
+                                        </option>
+                                    )
+                                })}
+
+                            </select>
+                        </div>
                         <div className="form-group">
-                            <label htmlFor="nombre">Persona</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="texto"
-                                name="texto"
-                                value={currentPersna.idPersona}
-                                onChange={handleInputChange}
-                            />
+                            <select id="idPersona " class="form-select form-select-lg mb-3"
+                                name="idPersona" onChange={handleInputChange}>
+                                <option value="0" >
+                                    Personas
+                                </option>
+
+                                {personas.map((persona, index) => {
+                                    return (
+                                        <option default={persona.id} key={index} value={persona.id} >
+                                            {persona.nombre}
+                                        </option>
+                                    )
+                                })}
+
+                            </select>
                         </div>
-
-
-                        <div className="form-group">
-                            <label htmlFor="nombre">Mocion</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="texto"
-                                name="texto"
-                                value={currentMocion.idMosion}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <Dropdown>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                    Tipos de Mociones
-                                </Dropdown.Toggle>
-
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
-
                     </form>
 
                     <button className="btn btn-danger" onClick={deletePersonaMocion}>
                         Borrar
-                    </button>
-                    <button
-                        type="submit"
-                        className="btn btn-success"
-                        onClick={updateMocion}
-                    >
-                        Actualizar
                     </button>
                     <p>{message}</p>
                 </div>
@@ -172,4 +155,4 @@ const PersonaMocion = (props) => {
         </div>
     );
 };
-export default Mocion;
+export default PersonaMocion;

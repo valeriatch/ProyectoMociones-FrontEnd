@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import PersonaDataService from "./services/PersonaService";
 import PersonaMocionService from "./services/PersonaMocionService";
 import { Link } from "react-router-dom";
-const PersonaList = () => {
+const PersonaMocionList = () => {
     const [personaMocion, setPersonaMocion] = useState([]);
     const [currentPersonaMocion, setCurrentPersonaMocion] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(-1);
@@ -14,7 +13,7 @@ const PersonaList = () => {
     const retrievePersonasMocion = () => {
         PersonaMocionService.getAll()
             .then((response) => {
-                setPersonas(response.data);
+                setPersonaMocion(response.data);
                 console.log(response.data);
             })
             .catch((e) => {
@@ -22,44 +21,27 @@ const PersonaList = () => {
             });
     };
 
-    /*
-    const refreshList = () => {
-      retrievePersonas();
-      setCurrentPersona(null);
-      setCurrentIndex(-1);
-    };
-    */
 
-    /*let valores = mociones.map((mocion, index) => {
-       return (
-         console.log(mocion),
-         <Dropdown.Item key={index} value={mocion.id}>
-           {mocion.texto}
-         </Dropdown.Item>
-       );
-   
-     }, this);*/
-
-    const setActivePersonaMocion = (personaMocion, index) => {
-        setCurrentPersona(personaMocion);
+    const setActivePersonaMocion = (personamocion, index) => {
+        setCurrentPersonaMocion(personamocion);
         setCurrentIndex(index);
     };
 
     return (
         <div className="list row">
             <div className="col-md-6">
-                <h4>Lista de Personas</h4>
+                <h4>Lista de Personas-Mociones Salvadas</h4>
                 <ul className="list-group">
                     {personaMocion &&
-                        personaMocion.map((personaMocion, index) => (
+                        personaMocion.map((personamocion, index) => (
                             <li
                                 className={
                                     "list-group-item " + (index === currentIndex ? "active" : "")
                                 }
-                                onClick={() => setActivePersonaMocion(personaMocion, index)}
+                                onClick={() => setActivePersonaMocion(personamocion, index)}
                                 key={index}
                             >
-                                {personaMocion.id}
+                                {personamocion.id}
                             </li>
                         ))}
                 </ul>
@@ -72,15 +54,15 @@ const PersonaList = () => {
                             <label>
                                 <strong>Identificacion:</strong>
                             </label>{" "}
-                            {currentPersonaMocion.id}
+                            {currentPersonaMocion.persona.nombre}
                         </div>
                         <div>
                             <label>
                                 <strong>Nombre:</strong>
                             </label>{" "}
-                            {currentPersona.nombre}
+                            {currentPersonaMocion.mocion.texto}
                         </div>
-                        <Link to={"/persona_mocion/personas/" + currentPersona.id} className="btn-success">
+                        <Link to={"/persona_mocion/persona_mocion/" + currentPersonaMocion.id} className="btn-success">
                             Edit
                         </Link>
                     </div>
@@ -94,4 +76,4 @@ const PersonaList = () => {
         </div>
     );
 };
-export default PersonaList;
+export default PersonaMocionList;

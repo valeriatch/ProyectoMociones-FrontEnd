@@ -3,6 +3,9 @@ import http from "../../../http-common";
 const getAll = () => {
     return http.get("/persona_mocion");
 };
+const getById = id => {
+    return http.get(`/persona_mocion/${id}`);
+};
 //listar mociones por persona
 const getMociones = id => {
     return http.get(`/persona_mocion/persona/${id}`);
@@ -28,6 +31,7 @@ const PersonaMocionService = {
     getMociones,
     getPersonas,
     create,
+    getById,
     //update,
     remove
 };
